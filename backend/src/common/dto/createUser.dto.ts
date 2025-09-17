@@ -17,8 +17,13 @@ export class CreateUserDto {
     password: string;
 
     @IsString()
-    planType: string;
+    @IsOptional()
+    picProfile?: string;
 
-    @IsBoolean()
-    isActive: boolean;
+    @IsString()
+    @IsNotEmpty()
+    subscription_id: string;
+
+    @IsOptional()
+    sub_limit?: number;
 }

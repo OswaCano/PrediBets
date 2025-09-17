@@ -33,8 +33,12 @@ export class UsersService {
         return this.userModel.findByIdAndDelete(id).exec();
     }
 
-    async findBySubType(planType: string) {
-        return this.userModel.find({ planType }).exec();
+    async findByEmail(email: string): Promise<any> {
+        return this.userModel.findOne({ email }).exec();
+    }
+
+    async findBySubscriptionId(subscription_id: string): Promise<any[]> {
+        return this.userModel.find({ subscription_id }).exec();
     }
 
 }

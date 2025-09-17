@@ -35,11 +35,7 @@ export class UsersController {
 
     @Post()
     async createUser(@Body() createUserDto: CreateUserDto) {
-        const existingUser = await this.usersService.findOne(createUserDto.username);
-        if (existingUser) {
-            throw new ConflictException(`User with username ${createUserDto.username} already exists`);
-        }
-        return this.usersService.create(createUserDto);
+
     }
 
     @Put(':id')
@@ -61,21 +57,13 @@ export class UsersController {
         await this.usersService.delete(id);
     }
 
-    @Get('subtype/:subType')
-    async getUsersBySubType(@Param('subType') subType: string) {
-        const users = await this.usersService.findBySubType(subType);
+    @Get('subscription_id/:subscription_id')
+    async getUsersBySub_id(@Param('subscription_id') subID: string) {
+        const users = await this.usersService.findBySubscriptionId(subID);
         if (!users || users.length === 0) {
-            throw new NotFoundException(`No users found with subscription type:  ${subType}`);
+            throw new NotFoundException(`No users found with subscription type:  ${subID}`);
         }
         return users;
     }
 
-    @Get('subtype/:subType/active')
-    async getActiveUsersBySubType(@Param('subType') subType: string) {
-        const users = await this.usersService.findBySubType(subType);
-        if (!users || users.length === 0) {
-            throw new NotFoundException(`No active users found with subscription type: ${subType}`);
-        }
-        return users.filter(user => user.isActive);
-    }
 }

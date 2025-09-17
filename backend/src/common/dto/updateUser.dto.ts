@@ -18,9 +18,12 @@ export class UpdateUserDto {
 
     @IsString()
     @IsOptional()
-    planType: string;
+    picProfile?: string;
 
-    @IsBoolean()
+    @IsString()
     @IsOptional()
-    isActive: boolean;
+    subscription_id: string;
+
+    @IsOptional()
+    sub_limit?: number;
 }
